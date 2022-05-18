@@ -1,196 +1,202 @@
-enum Network {
-  HARMONY
-  ETHEREUM
-  BINANCE
-}
+# enum Network {
+#   HARMONY
+#   ETHEREUM
+#   BINANCE
+# }
 
-type Wallet @entity {
+type NFT @entity {
   id: ID!
-
-  managers: [Manager!]! @derivedFrom(field: "wallet")
-
-  assetsCount: BigInt!
-
-  transactions: [Transaction!]! @derivedFrom(field: "wallet")
-  transactionsCount: BigInt!
-  transactionsConfirmedCount: BigInt!
-  transactionsExecutedCount: BigInt!
-
-  events: [WalletEvent!]! @derivedFrom(field: "wallet")
-
-  eventsCount: BigInt!
-  usersCount: BigInt!
-
-  dayData: [WalletDayData!]! @derivedFrom(field: "wallet")
+  owner: String
 }
 
-type Transaction @entity {
-  id: ID!
-  wallet: Wallet!
-  destination: String!
-  value: BigInt!
-  data: Bytes!
-  submittedBy: String!
+# Old code
+# type Wallet @entity {
+#   id: ID!
 
-  events: [WalletEvent!]! @derivedFrom(field: "transaction")
+#   managers: [Manager!]! @derivedFrom(field: "wallet")
 
-  confirmations: [Confirmation!]! @derivedFrom(field: "transaction")
-  confirmationsCount: BigInt!
-  confirmationsRequired: BigInt!
-  confirmed: Boolean!
+#   assetsCount: BigInt!
 
-  executed: Boolean!
-  execution: Execution
-  executions: [Execution!]! @derivedFrom(field: "transaction")
+#   transactions: [Transaction!]! @derivedFrom(field: "wallet")
+#   transactionsCount: BigInt!
+#   transactionsConfirmedCount: BigInt!
+#   transactionsExecutedCount: BigInt!
 
-  timestamp: BigInt!
-  blockNumber: BigInt!
-  txIndex: BigInt!
-  txHash: String!
+#   events: [WalletEvent!]! @derivedFrom(field: "wallet")
 
-  manager: Manager
-}
+#   eventsCount: BigInt!
+#   usersCount: BigInt!
 
-type Confirmation @entity {
-  id: ID!
-  transaction: Transaction!
-  sender: String!
-  timestamp: BigInt!
-  blockNumber: BigInt!
-  txIndex: BigInt!
-  txHash: String!
-}
+#   dayData: [WalletDayData!]! @derivedFrom(field: "wallet")
+# }
 
-enum ExecutionStatus {
-  SUCCESS
-  FAILURE
-}
+# type Transaction @entity {
+#   id: ID!
+#   wallet: Wallet!
+#   destination: String!
+#   value: BigInt!
+#   data: Bytes!
+#   submittedBy: String!
 
-type Execution @entity {
-  id: ID!
-  status: ExecutionStatus!
-  sender: String!
-  transaction: Transaction!
-  timestamp: BigInt!
-  blockNumber: BigInt!
-  txIndex: BigInt!
-  txHash: String!
-}
+#   events: [WalletEvent!]! @derivedFrom(field: "transaction")
 
-type Manager @entity {
-  id: ID!
-  wallet: Wallet!
+#   confirmations: [Confirmation!]! @derivedFrom(field: "transaction")
+#   confirmationsCount: BigInt!
+#   confirmationsRequired: BigInt!
+#   confirmed: Boolean!
 
-  assets: [Asset!]! @derivedFrom(field: "manager")
+#   executed: Boolean!
+#   execution: Execution
+#   executions: [Execution!]! @derivedFrom(field: "transaction")
 
-  events: [Event!]! @derivedFrom(field: "manager")
-  eventsCount: BigInt!
+#   timestamp: BigInt!
+#   blockNumber: BigInt!
+#   txIndex: BigInt!
+#   txHash: String!
 
-  locks: [Lock!]! @derivedFrom(field: "manager")
-  locksCount: BigInt!
-  unlocks: [Unlock!]! @derivedFrom(field: "manager")
-  unlocksCount: BigInt!
+#   manager: Manager
+# }
 
-  mints: [Mint!]! @derivedFrom(field: "manager")
-  mintsCount: BigInt!
-  burns: [Burn!]! @derivedFrom(field: "manager")
-  burnsCount: BigInt!
+# type Confirmation @entity {
+#   id: ID!
+#   transaction: Transaction!
+#   sender: String!
+#   timestamp: BigInt!
+#   blockNumber: BigInt!
+#   txIndex: BigInt!
+#   txHash: String!
+# }
 
-  nftMints: [NFTMint!]! @derivedFrom(field: "manager")
-  nftMintsCount: BigInt!
-  nftBurns: [NFTBurn!]! @derivedFrom(field: "manager")
-  nftBurnsCount: BigInt!
-}
+# enum ExecutionStatus {
+#   SUCCESS
+#   FAILURE
+# }
 
-type User @entity {
-  id: ID!
+# type Execution @entity {
+#   id: ID!
+#   status: ExecutionStatus!
+#   sender: String!
+#   transaction: Transaction!
+#   timestamp: BigInt!
+#   blockNumber: BigInt!
+#   txIndex: BigInt!
+#   txHash: String!
+# }
 
-  events: [Event!]! @derivedFrom(field: "user")
-  eventsCount: BigInt!
+# type Manager @entity {
+#   id: ID!
+#   wallet: Wallet!
 
-  locks: [Lock!]! @derivedFrom(field: "user")
-  locksCount: BigInt!
-  unlocks: [Unlock!]! @derivedFrom(field: "user")
-  unlocksCount: BigInt!
+#   assets: [Asset!]! @derivedFrom(field: "manager")
 
-  mints: [Mint!]! @derivedFrom(field: "user")
-  mintsCount: BigInt!
-  burns: [Burn!]! @derivedFrom(field: "user")
-  burnsCount: BigInt!
+#   events: [Event!]! @derivedFrom(field: "manager")
+#   eventsCount: BigInt!
 
-  nftMints: [NFTMint!]! @derivedFrom(field: "user")
-  nftMintsCount: BigInt!
-  nftBurns: [NFTBurn!]! @derivedFrom(field: "user")
-  nftBurnsCount: BigInt!
-}
+#   locks: [Lock!]! @derivedFrom(field: "manager")
+#   locksCount: BigInt!
+#   unlocks: [Unlock!]! @derivedFrom(field: "manager")
+#   unlocksCount: BigInt!
 
-interface Asset {
-  id: ID!
-  network: Network!
-  manager: Manager
-  symbol: String!
-  name: String!
+#   mints: [Mint!]! @derivedFrom(field: "manager")
+#   mintsCount: BigInt!
+#   burns: [Burn!]! @derivedFrom(field: "manager")
+#   burnsCount: BigInt!
 
-  address: Bytes!
-  mappedAddress: Bytes
+#   nftMints: [NFTMint!]! @derivedFrom(field: "manager")
+#   nftMintsCount: BigInt!
+#   nftBurns: [NFTBurn!]! @derivedFrom(field: "manager")
+#   nftBurnsCount: BigInt!
+# }
 
-  events: [Event!]! @derivedFrom(field: "asset")
-  eventsCount: BigInt!
-}
+# type User @entity {
+#   id: ID!
 
-type Token implements Asset @entity {
-  id: ID!
-  network: Network!
-  manager: Manager
-  symbol: String!
-  name: String!
+#   events: [Event!]! @derivedFrom(field: "user")
+#   eventsCount: BigInt!
 
-  address: Bytes!
-  mappedAddress: Bytes
+#   locks: [Lock!]! @derivedFrom(field: "user")
+#   locksCount: BigInt!
+#   unlocks: [Unlock!]! @derivedFrom(field: "user")
+#   unlocksCount: BigInt!
 
-  events: [Event!]! @derivedFrom(field: "asset")
-  eventsCount: BigInt!
+#   mints: [Mint!]! @derivedFrom(field: "user")
+#   mintsCount: BigInt!
+#   burns: [Burn!]! @derivedFrom(field: "user")
+#   burnsCount: BigInt!
 
-  decimals: BigInt!
+#   nftMints: [NFTMint!]! @derivedFrom(field: "user")
+#   nftMintsCount: BigInt!
+#   nftBurns: [NFTBurn!]! @derivedFrom(field: "user")
+#   nftBurnsCount: BigInt!
+# }
 
-  locks: [Lock!]! @derivedFrom(field: "token")
-  locksCount: BigInt!
-  unlocks: [Unlock!]! @derivedFrom(field: "token")
-  unlocksCount: BigInt!
+# interface Asset {
+#   id: ID!
+#   network: Network!
+#   manager: Manager
+#   symbol: String!
+#   name: String!
 
-  totalLocked: BigDecimal!
+#   address: Bytes!
+#   mappedAddress: Bytes
 
-  volume: BigDecimal!
+#   events: [Event!]! @derivedFrom(field: "asset")
+#   eventsCount: BigInt!
+# }
 
-  dayData: [TokenDayData!]! @derivedFrom(field: "token")
-}
+# type Token implements Asset @entity {
+#   id: ID!
+#   network: Network!
+#   manager: Manager
+#   symbol: String!
+#   name: String!
 
-type BridgedToken implements Asset @entity {
-  id: ID!
-  network: Network!
-  manager: Manager
-  symbol: String!
-  name: String!
+#   address: Bytes!
+#   mappedAddress: Bytes
 
-  address: Bytes!
-  mappedAddress: Bytes
+#   events: [Event!]! @derivedFrom(field: "asset")
+#   eventsCount: BigInt!
 
-  events: [Event!]! @derivedFrom(field: "asset")
-  eventsCount: BigInt!
+#   decimals: BigInt!
 
-  decimals: BigInt!
+#   locks: [Lock!]! @derivedFrom(field: "token")
+#   locksCount: BigInt!
+#   unlocks: [Unlock!]! @derivedFrom(field: "token")
+#   unlocksCount: BigInt!
 
-  mints: [Mint!]! @derivedFrom(field: "token")
-  mintsCount: BigInt!
-  burns: [Burn!]! @derivedFrom(field: "token")
-  burnsCount: BigInt!
+#   totalLocked: BigDecimal!
 
-  totalLocked: BigDecimal!
+#   volume: BigDecimal!
 
-  volume: BigDecimal!
+#   dayData: [TokenDayData!]! @derivedFrom(field: "token")
+# }
 
-  dayData: [BridgedTokenDayData!]! @derivedFrom(field: "token")
-}
+# type BridgedToken implements Asset @entity {
+#   id: ID!
+#   network: Network!
+#   manager: Manager
+#   symbol: String!
+#   name: String!
+
+#   address: Bytes!
+#   mappedAddress: Bytes
+
+#   events: [Event!]! @derivedFrom(field: "asset")
+#   eventsCount: BigInt!
+
+#   decimals: BigInt!
+
+#   mints: [Mint!]! @derivedFrom(field: "token")
+#   mintsCount: BigInt!
+#   burns: [Burn!]! @derivedFrom(field: "token")
+#   burnsCount: BigInt!
+
+#   totalLocked: BigDecimal!
+
+#   volume: BigDecimal!
+
+#   dayData: [BridgedTokenDayData!]! @derivedFrom(field: "token")
+# }
 
 # type NFT implements Asset @entity {
 #   id: ID!
@@ -205,251 +211,251 @@ type BridgedToken implements Asset @entity {
 #   eventsCount: BigInt!
 # }
 
-type BridgedNFT implements Asset @entity {
-  id: ID!
-  network: Network!
-  manager: Manager
-  symbol: String!
-  name: String!
+# type BridgedNFT implements Asset @entity {
+#   id: ID!
+#   network: Network!
+#   manager: Manager
+#   symbol: String!
+#   name: String!
 
-  address: Bytes!
-  mappedAddress: Bytes
+#   address: Bytes!
+#   mappedAddress: Bytes
 
-  events: [Event!]! @derivedFrom(field: "asset")
-  eventsCount: BigInt!
+#   events: [Event!]! @derivedFrom(field: "asset")
+#   eventsCount: BigInt!
 
-  mints: [NFTMint!]! @derivedFrom(field: "token")
-  mintsCount: BigInt!
-  burns: [NFTBurn!]! @derivedFrom(field: "token")
-  burnsCount: BigInt!
+#   mints: [NFTMint!]! @derivedFrom(field: "token")
+#   mintsCount: BigInt!
+#   burns: [NFTBurn!]! @derivedFrom(field: "token")
+#   burnsCount: BigInt!
 
-  inventory: [BigInt!]!
-}
+#   inventory: [BigInt!]!
+# }
 
-enum EventType {
-  LOCK
-  UNLOCK
-  MINT
-  BURN
+# enum EventType {
+#   LOCK
+#   UNLOCK
+#   MINT
+#   BURN
 
-  NFT_MINT
-  NFT_BURN
+#   NFT_MINT
+#   NFT_BURN
 
-  SUBMISSION
-  CONFIRMATION
-  EXECUTION
-  EXECUTION_FAILED
+#   SUBMISSION
+#   CONFIRMATION
+#   EXECUTION
+#   EXECUTION_FAILED
 
-  WITHDRAW
-}
+#   WITHDRAW
+# }
 
-interface Event {
-  id: ID!
-  type: EventType!
-  contract: Bytes!
+# interface Event {
+#   id: ID!
+#   type: EventType!
+#   contract: Bytes!
 
-  manager: Manager
-  asset: Asset
-  user: User
+#   manager: Manager
+#   asset: Asset
+#   user: User
 
-  timestamp: BigInt!
-  blockNumber: BigInt!
-  txIndex: BigInt!
-  txHash: Bytes!
-}
+#   timestamp: BigInt!
+#   blockNumber: BigInt!
+#   txIndex: BigInt!
+#   txHash: Bytes!
+# }
 
-type WalletEvent implements Event @entity {
-  id: ID!
-  type: EventType!
-  contract: Bytes!
+# type WalletEvent implements Event @entity {
+#   id: ID!
+#   type: EventType!
+#   contract: Bytes!
 
-  manager: Manager
-  asset: Asset
-  user: User
+#   manager: Manager
+#   asset: Asset
+#   user: User
 
-  timestamp: BigInt!
-  blockNumber: BigInt!
-  txIndex: BigInt!
-  txHash: Bytes!
+#   timestamp: BigInt!
+#   blockNumber: BigInt!
+#   txIndex: BigInt!
+#   txHash: Bytes!
 
-  wallet: Wallet!
-  transaction: Transaction!
-}
+#   wallet: Wallet!
+#   transaction: Transaction!
+# }
 
-type Withdraw implements Event @entity {
-  id: ID!
-  type: EventType!
-  contract: Bytes!
+# type Withdraw implements Event @entity {
+#   id: ID!
+#   type: EventType!
+#   contract: Bytes!
 
-  manager: Manager
-  asset: Asset
-  user: User
+#   manager: Manager
+#   asset: Asset
+#   user: User
 
-  timestamp: BigInt!
-  blockNumber: BigInt!
-  txIndex: BigInt!
-  txHash: Bytes!
+#   timestamp: BigInt!
+#   blockNumber: BigInt!
+#   txIndex: BigInt!
+#   txHash: Bytes!
 
-  recipient: String!
-  amount: BigDecimal!
-}
+#   recipient: String!
+#   amount: BigDecimal!
+# }
 
-type Mint implements Event @entity {
-  id: ID!
-  type: EventType!
-  contract: Bytes!
+# type Mint implements Event @entity {
+#   id: ID!
+#   type: EventType!
+#   contract: Bytes!
 
-  manager: Manager
-  asset: Asset
-  user: User
+#   manager: Manager
+#   asset: Asset
+#   user: User
 
-  timestamp: BigInt!
-  blockNumber: BigInt!
-  txIndex: BigInt!
-  txHash: Bytes!
+#   timestamp: BigInt!
+#   blockNumber: BigInt!
+#   txIndex: BigInt!
+#   txHash: Bytes!
 
-  token: BridgedToken!
+#   token: BridgedToken!
 
-  recipient: Bytes!
-  receiptId: Bytes!
-  amount: BigDecimal!
-}
+#   recipient: Bytes!
+#   receiptId: Bytes!
+#   amount: BigDecimal!
+# }
 
-type Burn implements Event @entity {
-  id: ID!
-  type: EventType!
-  contract: Bytes!
+# type Burn implements Event @entity {
+#   id: ID!
+#   type: EventType!
+#   contract: Bytes!
 
-  manager: Manager
-  asset: Asset
-  user: User
+#   manager: Manager
+#   asset: Asset
+#   user: User
 
-  timestamp: BigInt!
-  blockNumber: BigInt!
-  txIndex: BigInt!
-  txHash: Bytes!
+#   timestamp: BigInt!
+#   blockNumber: BigInt!
+#   txIndex: BigInt!
+#   txHash: Bytes!
 
-  token: BridgedToken!
+#   token: BridgedToken!
 
-  sender: Bytes!
-  recipient: Bytes!
-  amount: BigDecimal!
-}
+#   sender: Bytes!
+#   recipient: Bytes!
+#   amount: BigDecimal!
+# }
 
-type Lock implements Event @entity {
-  id: ID!
-  type: EventType!
-  contract: Bytes!
+# type Lock implements Event @entity {
+#   id: ID!
+#   type: EventType!
+#   contract: Bytes!
 
-  manager: Manager
-  asset: Asset
-  user: User
+#   manager: Manager
+#   asset: Asset
+#   user: User
 
-  timestamp: BigInt!
-  blockNumber: BigInt!
-  txIndex: BigInt!
-  txHash: Bytes!
+#   timestamp: BigInt!
+#   blockNumber: BigInt!
+#   txIndex: BigInt!
+#   txHash: Bytes!
 
-  token: Token!
+#   token: Token!
 
-  sender: Bytes!
-  recipient: Bytes!
-  amount: BigDecimal!
-}
+#   sender: Bytes!
+#   recipient: Bytes!
+#   amount: BigDecimal!
+# }
 
-type Unlock implements Event @entity {
-  id: ID!
-  type: EventType!
-  contract: Bytes!
+# type Unlock implements Event @entity {
+#   id: ID!
+#   type: EventType!
+#   contract: Bytes!
 
-  manager: Manager
-  asset: Asset
-  user: User
+#   manager: Manager
+#   asset: Asset
+#   user: User
 
-  timestamp: BigInt!
-  blockNumber: BigInt!
-  txIndex: BigInt!
-  txHash: Bytes!
+#   timestamp: BigInt!
+#   blockNumber: BigInt!
+#   txIndex: BigInt!
+#   txHash: Bytes!
 
-  token: Token!
+#   token: Token!
 
-  recipient: Bytes!
-  receiptId: Bytes!
-  amount: BigDecimal!
-}
+#   recipient: Bytes!
+#   receiptId: Bytes!
+#   amount: BigDecimal!
+# }
 
-type NFTMint implements Event @entity {
-  id: ID!
-  type: EventType!
-  contract: Bytes!
+# type NFTMint implements Event @entity {
+#   id: ID!
+#   type: EventType!
+#   contract: Bytes!
 
-  manager: Manager
-  asset: Asset
-  user: User
+#   manager: Manager
+#   asset: Asset
+#   user: User
 
-  timestamp: BigInt!
-  blockNumber: BigInt!
-  txIndex: BigInt!
-  txHash: Bytes!
+#   timestamp: BigInt!
+#   blockNumber: BigInt!
+#   txIndex: BigInt!
+#   txHash: Bytes!
 
-  token: BridgedNFT!
+#   token: BridgedNFT!
 
-  recipient: Bytes!
-  receiptId: Bytes!
-  tokenId: BigInt!
-}
+#   recipient: Bytes!
+#   receiptId: Bytes!
+#   tokenId: BigInt!
+# }
 
-type NFTBurn implements Event @entity {
-  id: ID!
-  type: EventType!
-  contract: Bytes!
+# type NFTBurn implements Event @entity {
+#   id: ID!
+#   type: EventType!
+#   contract: Bytes!
 
-  manager: Manager
-  asset: Asset
-  user: User
+#   manager: Manager
+#   asset: Asset
+#   user: User
 
-  timestamp: BigInt!
-  blockNumber: BigInt!
-  txIndex: BigInt!
-  txHash: Bytes!
+#   timestamp: BigInt!
+#   blockNumber: BigInt!
+#   txIndex: BigInt!
+#   txHash: Bytes!
 
-  token: BridgedNFT!
+#   token: BridgedNFT!
 
-  sender: Bytes!
-  recipient: Bytes!
-  tokenId: BigInt!
-}
+#   sender: Bytes!
+#   recipient: Bytes!
+#   tokenId: BigInt!
+# }
 
-type WalletDayData @entity {
-  id: ID!
-  date: Int!
-  wallet: Wallet!
-  usersCount: BigInt!
-  newUsersCount: BigInt!
-  assetsCount: BigInt!
-  newAssetsCount: BigInt!
-  eventsCount: BigInt!
-  transactionsCount: BigInt!
-}
+# type WalletDayData @entity {
+#   id: ID!
+#   date: Int!
+#   wallet: Wallet!
+#   usersCount: BigInt!
+#   newUsersCount: BigInt!
+#   assetsCount: BigInt!
+#   newAssetsCount: BigInt!
+#   eventsCount: BigInt!
+#   transactionsCount: BigInt!
+# }
 
-type TokenDayData @entity {
-  id: ID!
-  date: Int!
-  token: Token!
-  volume: BigDecimal!
-  eventsCount: BigInt!
-  locksCount: BigInt!
-  unlocksCount: BigInt!
-  totalLocked: BigDecimal!
-}
+# type TokenDayData @entity {
+#   id: ID!
+#   date: Int!
+#   token: Token!
+#   volume: BigDecimal!
+#   eventsCount: BigInt!
+#   locksCount: BigInt!
+#   unlocksCount: BigInt!
+#   totalLocked: BigDecimal!
+# }
 
-type BridgedTokenDayData @entity {
-  id: ID!
-  date: Int!
-  token: BridgedToken!
-  volume: BigDecimal!
-  eventsCount: BigInt!
-  mintsCount: BigInt!
-  burnsCount: BigInt!
-  totalLocked: BigDecimal!
-}
+# type BridgedTokenDayData @entity {
+#   id: ID!
+#   date: Int!
+#   token: BridgedToken!
+#   volume: BigDecimal!
+#   eventsCount: BigInt!
+#   mintsCount: BigInt!
+#   burnsCount: BigInt!
+#   totalLocked: BigDecimal!
+# }
