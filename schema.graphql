@@ -7,6 +7,7 @@
 type NFT @entity {
   id: ID!
   owner: String
+  type: BigInt
 }
 
 # Old code

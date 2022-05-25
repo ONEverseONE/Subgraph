@@ -90,9 +90,9 @@
       },
       {
         "indexed": false,
-        "internalType": "uint8",
+        "internalType": "uint256",
         "name": "listingType",
-        "type": "uint8"
+        "type": "uint256"
       }
     ],
     "name": "tokenListed",
@@ -292,8 +292,7 @@
     "name": "listToken",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function",
-    "signature": "0xbce64a7d"
+    "type": "function"
   },
   {
     "inputs": [

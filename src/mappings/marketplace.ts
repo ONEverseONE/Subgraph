@@ -14,6 +14,7 @@ import { NFT } from "../../generated/schema";
 export function handleListing(event: tokenListed): void {
   let token = new NFT(event.params.tokenId.toString());
   token.owner = event.params.owner.toString();
+  token.type = event.params.listingType;
   token.save();
 }
 
