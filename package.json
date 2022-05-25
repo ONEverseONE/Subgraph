@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "create-local": "graph create bmgalego/bridge-subgraph --node http://0.0.0.0:8020",
-    "remove-local": "graph remove bmgalego/bridge-subgraph --node http://0.0.0.0:8020",
+    "create-local": "graph create oneverse/oneverse-subgraph --node http://0.0.0.0:8020",
+    "remove-local": "graph remove oneverse/oneverse-subgraph --node http://0.0.0.0:8020",
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy bmgalego/bridge-subgraph --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
-    "deploy-local": "graph deploy bmgalego/bridge-subgraph --ipfs http://0.0.0.0:5001 --node http://0.0.0.0:8020"
+    "deploy": "graph deploy oneverse/oneverse-subgraph --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
+    "deploy-local": "graph deploy oneverse/oneverse-subgraph --ipfs http://0.0.0.0:5001 --node http://0.0.0.0:8020"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "0.20.0",
