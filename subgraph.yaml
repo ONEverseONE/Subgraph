@@ -8,7 +8,7 @@ dataSources:
     name: OneverseMarketplace
     network: testnet
     source:
-      address: "0x7234cdc81af1F05051b57C3A882F32C045a03895"
+      address: "0x9542a61F170478d31d37522E2082aB3d46c28775"
       abi: OneverseMarketplace
       startBlock: 25678750
     mapping:
@@ -17,10 +17,37 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - NFT
+        - Bid
       abis:
         - name: OneverseMarketplace
           file: ./abis/OneverseMarketplace.json
       eventHandlers:
-        - event: tokenListed(indexed address,indexed uint256,uint8)
+        - event: tokenListed(indexed address,indexed uint256,uint8,uint256)
           handler: handleListing
+        - event: tokenDeListed(indexed uint256,uint8)
+          handler: handleDelisting
+        - event: tokenBought(indexed address,indexed uint256)
+          handler: handleTokenBought
+        - event: receivedBid(indexed address,indexed uint256,uint256)
+          handler: handleReceivedBid
       file: ./src/mappings/marketplace.ts
+  - kind: ethereum/contract
+    name: OneverseNFT
+    network: testnet
+    source:
+      address: "0x701d1907fd9Ed5A1B4d6f005D602C723F9fD47fa"
+      abi: OneverseNFT
+      startBlock: 25678750
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - NFT
+      abis:
+        - name: OneverseNFT
+          file: ./abis/OneverseNFT.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer_NFTs
+      file: ./src/mappings/nft.ts

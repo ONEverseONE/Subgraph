@@ -1,20 +1,44 @@
 import { BigInt } from "@graphprotocol/graph-ts";
-import { tokenListed } from "../../generated/OneverseMarketplace/OneverseMarketplace";
-// import {
-//   Wallet,
-//   Transaction,
-//   Confirmation,
-//   Execution,
-//   Manager,
-//   WalletEvent,
-// } from "../../generated/schema";
+import {
+  receivedBid,
+  tokenDeListed,
+  tokenListed,
+} from "../../generated/OneverseMarketplace/OneverseMarketplace";
 
-import { NFT } from "../../generated/schema";
+import { NFT, Bid } from "../../generated/schema";
 
 export function handleListing(event: tokenListed): void {
-  let token = new NFT(event.params.tokenId.toString());
+  let id = event.params.tokenId.toString();
+  let token = NFT.load(id);
+  if (token == null) {
+    token = new NFT(id);
+  }
   token.owner = event.params.owner.toHexString();
   token.type = event.params.listingType;
+  token.originalPrice = event.params.price;
+  token.save();
+}
+
+export function handleDelisting(event: tokenDeListed): void {
+  let id = event.params.tokenId.toString();
+  let token = NFT.load(id);
+  if (token != null) {
+    token.type = 0;
+  }
+  token.save();
+}
+
+export function handleBid(event: receivedBid): void {
+  let id = event.transaction.hash.toHex() + "-" + event.logIndex.toString();
+  let bid = new Bid(id);
+  bid.token = event.params.tokenId.toString();
+  bid.price = event.params.amount;
+  bid.address = event.params.bidder;
+  bid.save();
+  let token = NFT.load(event.params.tokenId.toString());
+  let tokenBids = token.bids;
+  tokenBids.push(id);
+  token.bids = tokenBids;
   token.save();
 }
 

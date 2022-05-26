@@ -8,6 +8,15 @@ type NFT @entity {
   id: ID!
   owner: String
   type: Int
+  originalPrice: BigInt
+  bids: [Bid!] @derivedFrom(field: "token")
+}
+
+type Bid @entity {
+  id: ID!
+  token: NFT!
+  address: Bytes
+  price: BigInt
 }
 
 # Old code
