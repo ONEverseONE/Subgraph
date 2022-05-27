@@ -134,7 +134,9 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true,
+    "signature": "0xc57981b5"
   },
   {
     "inputs": [],
@@ -147,7 +149,9 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true,
+    "signature": "0x0e82c918"
   },
   {
     "inputs": [
@@ -261,7 +265,9 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true,
+    "signature": "0x8da5cb5b"
   },
   {
     "inputs": [],

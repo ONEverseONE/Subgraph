@@ -8,9 +8,9 @@ dataSources:
     name: OneverseMarketplace
     network: testnet
     source:
-      address: "0x9542a61F170478d31d37522E2082aB3d46c28775"
+      address: "0x5db9140841BB549ee1b4913792Fe6E644142228c"
       abi: OneverseMarketplace
-      startBlock: 25678750
+      startBlock: 25744736
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

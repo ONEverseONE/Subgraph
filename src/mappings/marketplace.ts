@@ -28,13 +28,15 @@ export function handleDelisting(event: tokenDeListed): void {
   token.save();
 }
 
-export function handleBid(event: receivedBid): void {
+export function handleReceivedBid(event: receivedBid): void {
   let id = event.transaction.hash.toHex() + "-" + event.logIndex.toString();
+
   let bid = new Bid(id);
   bid.token = event.params.tokenId.toString();
   bid.price = event.params.amount;
   bid.address = event.params.bidder;
   bid.save();
+
   let token = NFT.load(event.params.tokenId.toString());
   let tokenBids = token.bids;
   tokenBids.push(id);
