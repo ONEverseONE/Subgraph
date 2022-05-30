@@ -149,9 +149,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true,
-    "signature": "0xc57981b5"
+    "type": "function"
   },
   {
     "inputs": [],
@@ -164,9 +162,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true,
-    "signature": "0x0e82c918"
+    "type": "function"
   },
   {
     "inputs": [
@@ -237,9 +233,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true,
-    "signature": "0xe927fc5c"
+    "type": "function"
   },
   {
     "inputs": [],
@@ -252,9 +246,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true,
-    "signature": "0xdb66c31b"
+    "type": "function"
   },
   {
     "inputs": [
@@ -310,9 +302,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true,
-    "signature": "0x8da5cb5b"
+    "type": "function"
   },
   {
     "inputs": [],
@@ -332,9 +322,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true,
-    "signature": "0x698e5176"
+    "type": "function"
   },
   {
     "inputs": [],
@@ -347,9 +335,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true,
-    "signature": "0x8a71bb2d"
+    "type": "function"
   },
   {
     "inputs": [
