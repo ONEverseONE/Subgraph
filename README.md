@@ -1,11 +1,16 @@
-# Horizon Bridge Subgraph
+# ONEverse Subgraph
+
+## Built on top of HORIZON BRIDGE SUBGRAPH
+
+- https://github.com/harmony-one/horizon-bridge-subgraph
 
 ## Prerequisites
-* Run graph node locally using `docker-compore up` or point to `https://graph.t.hmny.io:8020/` as described in [docs.harmony.one](https://docs.harmony.one/home/developers/tools/the-graph)
-* `yarn codegen`
-* `yarn build`
-* `yarn create-local` or `npm run create-local`
-* `yarn deploy-local` or `npm run deploy-local`
+
+- Run graph node locally using `docker-compore up` or point to `https://graph.t.hmny.io:8020/` as described in [docs.harmony.one](https://docs.harmony.one/home/developers/tools/the-graph)
+- `yarn codegen`
+- `yarn build`
+- `yarn create-local` or `npm run create-local`
+- `yarn deploy-local` or `npm run deploy-local`
 
 This subgraph dynamically tracks assets and events
 
