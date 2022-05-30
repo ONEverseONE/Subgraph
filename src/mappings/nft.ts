@@ -9,7 +9,7 @@ export function handleTransfer_NFTs(event: Transfer): void {
     token = new NFT(id);
   }
   let newOwner = event.params.to.toHexString();
-  if (newOwner !== "0x5db9140841BB549ee1b4913792Fe6E644142228c") {
+  if (newOwner !== "0xc4EB0f03fb6D0eEE602943a92CA26ACf3501f944") {
     token.owner = event.params.to.toHexString();
     token.type = 0;
   }

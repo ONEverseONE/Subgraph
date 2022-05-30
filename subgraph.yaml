@@ -8,7 +8,7 @@ dataSources:
     name: OneverseMarketplace
     network: testnet
     source:
-      address: "0x5db9140841BB549ee1b4913792Fe6E644142228c"
+      address: "0xc4EB0f03fb6D0eEE602943a92CA26ACf3501f944"
       abi: OneverseMarketplace
       startBlock: 25744736
     mapping:
