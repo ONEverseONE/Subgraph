@@ -16,6 +16,7 @@ export function handleListing(event: tokenListed): void {
   token.owner = event.params.owner.toHexString();
   token.type = event.params.listingType;
   token.originalPrice = event.params.price;
+  token.contract = event.address.toHexString();
   token.save();
 }
 
@@ -35,6 +36,7 @@ export function handleReceivedBid(event: receivedBid): void {
   bid.token = event.params.tokenId.toString();
   bid.price = event.params.amount;
   bid.address = event.params.bidder;
+  bid.createdAt = event.block.timestamp;
   bid.save();
 
   let token = NFT.load(event.params.tokenId.toString());
