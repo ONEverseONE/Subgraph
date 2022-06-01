@@ -13,6 +13,7 @@ export function handleTransfer_NFTs(event: Transfer): void {
     token.owner = event.params.to.toHexString();
     token.type = 0;
   }
+  token.contract = event.address.toHexString();
   token.save();
 }
 

@@ -16,7 +16,6 @@ export function handleListing(event: tokenListed): void {
   token.owner = event.params.owner.toHexString();
   token.type = event.params.listingType;
   token.originalPrice = event.params.price;
-  token.contract = event.address.toHexString();
   token.save();
 }
 
