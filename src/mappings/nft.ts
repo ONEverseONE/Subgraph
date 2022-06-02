@@ -3,7 +3,7 @@ import { Transfer } from "../../generated/OneverseNFT/OneverseNFT";
 import { NFT } from "../../generated/schema";
 
 export function handleTransfer_NFTs(event: Transfer): void {
-  let id = event.params.tokenId.toString();
+  let id = event.address.toHexString() + "-" + event.params.tokenId.toString();
   let token = NFT.load(id);
   if (token == null) {
     token = new NFT(id);
