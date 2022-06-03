@@ -1,6 +1,7 @@
 import { BigInt } from "@graphprotocol/graph-ts";
 import {
   receivedBid,
+  tokenBought,
   tokenDeListed,
   tokenListed,
 } from "../../generated/OneverseMarketplace/OneverseMarketplace";
@@ -25,6 +26,7 @@ export function handleDelisting(event: tokenDeListed): void {
   let token = NFT.load(id);
   if (token != null) {
     token.type = 0;
+    token.owner = token.lastListedBy;
     token.save();
   }
 }
@@ -44,6 +46,16 @@ export function handleReceivedBid(event: receivedBid): void {
     let tokenBids = token.bids;
     tokenBids.push(id);
     token.bids = tokenBids;
+    token.save();
+  }
+}
+
+export function handleTokenBought(event: tokenBought): void {
+  let id = event.address.toHexString() + "-" + event.params.tokenId.toString();
+  let token = NFT.load(id);
+  if (token != null) {
+    token.type = 0;
+    token.owner = event.params.buyer.toHexString();
     token.save();
   }
 }
