@@ -8,20 +8,20 @@ import {
 import { NFT, Bid } from "../../generated/schema";
 
 export function handleListing(event: tokenListed): void {
-  let id = event.params.tokenId.toString();
+  let id = event.address.toHexString() + "-" + event.params.tokenId.toString();
   let token = NFT.load(id);
   if (token == null) {
     token = new NFT(id);
   }
   token.lastListedBy = token.owner;
-  token.owner = event.params.owner.toHexString();
+  token.owner = event.address.toHexString();
   token.type = event.params.listingType;
   token.originalPrice = event.params.price;
   token.save();
 }
 
 export function handleDelisting(event: tokenDeListed): void {
-  let id = event.params.tokenId.toString();
+  let id = event.address.toHexString() + "-" + event.params.tokenId.toString();
   let token = NFT.load(id);
   if (token != null) {
     token.type = 0;
