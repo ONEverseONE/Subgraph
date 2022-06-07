@@ -4,13 +4,73 @@ repository: https://github.com/Harmolecules/subgraph
 schema:
   file: ./schema.graphql
 dataSources:
+  # - kind: ethereum/contract
+  #   name: PuffNFT
+  #   network: mainnet
+  #   source:
+  #     address: "0x870c0238e8779fe9f568dd1cc907fa449dbe8552"
+  #     abi: PuffNFT
+  #     startBlock: 20614713
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - NFT
+  #     abis:
+  #       - name: PuffNFT
+  #         file: ./abis/PuffNFT.json
+  #     eventHandlers:
+  #       - event: Transfer(indexed address,indexed address,indexed uint256)
+  #         handler: handleTransfer_NFTs
+  #     file: ./src/mappings/nft.ts
+  # - kind: ethereum/contract
+  #   name: HarmoleculesNFT
+  #   network: mainnet
+  #   source:
+  #     address: "0xb44778bfe8a6c3468dcf7219fb104ba7e42f8d2a"
+  #     abi: HarmoleculesNFT
+  #     startBlock: 19739270
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - NFT
+  #     abis:
+  #       - name: HarmoleculesNFT
+  #         file: ./abis/HarmoleculesNFT.json
+  #     eventHandlers:
+  #       - event: Transfer(indexed address,indexed address,indexed uint256)
+  #         handler: handleTransfer_NFTs
+  #     file: ./src/mappings/nft.ts
   - kind: ethereum/contract
-    name: PuffMarketplace
-    network: mainnet
+    name: TestNFT
+    network: testnet
     source:
-      address: "0x1b60FB41d26836604bcE7Daa13DC65c60aAa9307"
-      abi: PuffMarketplace
-      startBlock: 27255517
+      address: "0x943AE671811877abf303a60d1827C8e5AFf76e83"
+      abi: TestNFT
+      startBlock: 26231222
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - NFT
+      abis:
+        - name: TestNFT
+          file: ./abis/TestNFT.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer_NFTs
+      file: ./src/mappings/nft.ts
+  - kind: ethereum/contract
+    name: OneverseMarketplace
+    network: testnet
+    source:
+      address: "0xfFC0Fe2Edb4C506Fe3D97Fa3d397EF71d90CEB55"
+      abi: OneverseMarketplace
+      startBlock: 26231246
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -19,82 +79,15 @@ dataSources:
         - NFT
         - Bid
       abis:
-        - name: PuffMarketplace
-          file: ./abis/PuffMarketplace.json
+        - name: OneverseMarketplace
+          file: ./abis/OneverseMarketplace.json
       eventHandlers:
-        - event: tokenListed(indexed address,indexed uint256,uint8,uint256)
+        - event: tokenListed(indexed address,indexed address,indexed uint256,uint8,uint256,uint256)
           handler: handleListing
-        - event: tokenDeListed(indexed uint256,uint8)
+        - event: tokenDeListed(indexed address,indexed uint256,uint8)
           handler: handleDelisting
-        - event: tokenBought(indexed address,indexed uint256)
+        - event: tokenBought(indexed address,indexed address,indexed uint256)
           handler: handleTokenBought
-        - event: receivedBid(indexed address,indexed uint256,uint256)
+        - event: receivedBid(indexed address,indexed address,indexed uint256,uint256)
           handler: handleReceivedBid
       file: ./src/mappings/marketplace.ts
-  - kind: ethereum/contract
-    name: PuffNFT
-    network: mainnet
-    source:
-      address: "0x870c0238e8779fe9f568dd1cc907fa449dbe8552"
-      abi: PuffNFT
-      startBlock: 20614713
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - NFT
-      abis:
-        - name: PuffNFT
-          file: ./abis/PuffNFT.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,indexed uint256)
-          handler: handleTransfer_NFTs
-      file: ./src/mappings/nft.ts
-  - kind: ethereum/contract
-    name: HarmoleculesMarketplace
-    network: mainnet
-    source:
-      address: "0x1FB8E90FB74DAC4EA43b7341CB0F7ACC70c93e63"
-      abi: HarmoleculesMarketplace
-      startBlock: 27258923
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - NFT
-        - Bid
-      abis:
-        - name: HarmoleculesMarketplace
-          file: ./abis/HarmoleculesMarketplace.json
-      eventHandlers:
-        - event: tokenListed(indexed address,indexed uint256,uint8,uint256)
-          handler: handleListing
-        - event: tokenDeListed(indexed uint256,uint8)
-          handler: handleDelisting
-        - event: tokenBought(indexed address,indexed uint256)
-          handler: handleTokenBought
-        - event: receivedBid(indexed address,indexed uint256,uint256)
-          handler: handleReceivedBid
-      file: ./src/mappings/marketplace.ts
-  - kind: ethereum/contract
-    name: HarmoleculesNFT
-    network: mainnet
-    source:
-      address: "0xb44778bfe8a6c3468dcf7219fb104ba7e42f8d2a"
-      abi: HarmoleculesNFT
-      startBlock: 19739270
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - NFT
-      abis:
-        - name: HarmoleculesNFT
-          file: ./abis/HarmoleculesNFT.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,indexed uint256)
-          handler: handleTransfer_NFTs
-      file: ./src/mappings/nft.ts

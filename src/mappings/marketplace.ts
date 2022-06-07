@@ -9,19 +9,28 @@ import {
 import { NFT, Bid } from "../../generated/schema";
 
 export function handleListing(event: tokenListed): void {
-  let id = event.address.toHexString() + "-" + event.params.tokenId.toString();
+  let id =
+    event.params._contract.toHexString() +
+    "-" +
+    event.params.tokenId.toString();
   let token = NFT.load(id);
   if (token != null) {
     token.lastListedBy = token.owner;
     token.owner = event.address.toHexString();
     token.type = event.params.listingType;
+    if (event.params.listingType === 2) {
+      token.auctionDuration = event.params.duration;
+    }
     token.originalPrice = event.params.price;
     token.save();
   }
 }
 
 export function handleDelisting(event: tokenDeListed): void {
-  let id = event.address.toHexString() + "-" + event.params.tokenId.toString();
+  let id =
+    event.params._contract.toHexString() +
+    "-" +
+    event.params.tokenId.toString();
   let token = NFT.load(id);
   if (token != null) {
     token.type = 0;
@@ -32,7 +41,6 @@ export function handleDelisting(event: tokenDeListed): void {
 
 export function handleReceivedBid(event: receivedBid): void {
   let id = event.transaction.hash.toHex() + "-" + event.logIndex.toString();
-
   let bid = new Bid(id);
   bid.token = event.params.tokenId.toString();
   bid.price = event.params.amount;
@@ -50,7 +58,10 @@ export function handleReceivedBid(event: receivedBid): void {
 }
 
 export function handleTokenBought(event: tokenBought): void {
-  let id = event.address.toHexString() + "-" + event.params.tokenId.toString();
+  let id =
+    event.params._contract.toHexString() +
+    "-" +
+    event.params.tokenId.toString();
   let token = NFT.load(id);
   if (token != null) {
     token.type = 0;
