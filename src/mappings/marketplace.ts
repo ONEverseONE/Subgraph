@@ -15,8 +15,6 @@ export function handleListing(event: tokenListed): void {
     event.params.tokenId.toString();
   let token = NFT.load(id);
   if (token != null) {
-    token.lastListedBy = token.owner;
-    token.owner = event.address.toHexString();
     token.type = event.params.listingType;
     if (event.params.listingType === 2) {
       token.auctionDuration = event.params.duration;
@@ -42,19 +40,20 @@ export function handleDelisting(event: tokenDeListed): void {
 export function handleReceivedBid(event: receivedBid): void {
   let id = event.transaction.hash.toHex() + "-" + event.logIndex.toString();
   let bid = new Bid(id);
-  bid.token = event.params.tokenId.toString();
   bid.price = event.params.amount;
   bid.address = event.params.bidder;
   bid.createdAt = event.block.timestamp;
+
+  let token = NFT.load(
+    event.params._contract.toHexString() + "-" + event.params.tokenId.toString()
+  );
+  bid.token = token.id;
   bid.save();
 
-  let token = NFT.load(event.params.tokenId.toString());
-  if (token != null) {
-    let tokenBids = token.bids;
-    tokenBids.push(id);
-    token.bids = tokenBids;
-    token.save();
-  }
+  let tokenBids = token.bids;
+  tokenBids.push(bid.id);
+  token.bids = tokenBids;
+  token.save();
 }
 
 export function handleTokenBought(event: tokenBought): void {
