@@ -32,7 +32,7 @@ export function handleDelisting(event: tokenDeListed): void {
   let token = NFT.load(id);
   if (token != null) {
     token.type = 0;
-    token.owner = token.lastListedBy;
+    token.bids = [];
     token.save();
   }
 }
@@ -47,13 +47,15 @@ export function handleReceivedBid(event: receivedBid): void {
   let token = NFT.load(
     event.params._contract.toHexString() + "-" + event.params.tokenId.toString()
   );
-  bid.token = token.id;
-  bid.save();
 
-  let tokenBids = token.bids;
-  tokenBids.push(bid.id);
-  token.bids = tokenBids;
-  token.save();
+  if (token != null) {
+    bid.token = token.id;
+    bid.save();
+    let tokenBids = token.bids;
+    tokenBids.push(bid.id);
+    token.bids = tokenBids;
+    token.save();
+  }
 }
 
 export function handleTokenBought(event: tokenBought): void {
@@ -65,6 +67,7 @@ export function handleTokenBought(event: tokenBought): void {
   if (token != null) {
     token.type = 0;
     token.owner = event.params.buyer.toHexString();
+    token.bids = [];
     token.save();
   }
 }
