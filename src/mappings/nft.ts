@@ -1,4 +1,4 @@
-import { Transfer } from "../../generated/OneverseNFT/OneverseNFT";
+import { Transfer } from "../../generated/TestNFT/TestNFT";
 
 import { NFT } from "../../generated/schema";
 

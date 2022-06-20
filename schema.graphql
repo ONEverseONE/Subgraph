@@ -10,7 +10,7 @@ type NFT @entity {
   owner: String
   type: Int
   originalPrice: BigInt
-  bids: [Bid!] @derivedFrom(field: "token")
+  bids: [Bid!]
   contract: String
   lastListedBy: String
   auctionDuration: BigInt

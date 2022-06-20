@@ -52,7 +52,9 @@ export function handleReceivedBid(event: receivedBid): void {
     bid.token = token.id;
     bid.save();
     let tokenBids = token.bids;
-    tokenBids.push(bid.id);
+    if (tokenBids != null) {
+      tokenBids.push(bid.id);
+    }
     token.bids = tokenBids;
     token.save();
   }
